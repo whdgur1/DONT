@@ -1,0 +1,28 @@
+# Example Project Requirements Document
+
+## Project Overview
+This is an example PRD for demonstration purposes.
+
+## Core Features
+1. User Authentication
+   - Sign up with email
+   - Login with email/password
+   - Password recovery
+
+2. Task Management
+   - Create new tasks
+   - Edit existing tasks
+   - Delete tasks
+   - Mark tasks as complete
+
+3. User Interface
+   - Clean and modern design
+   - Responsive layout
+   - Dark/Light mode toggle
+
+## Technical Requirements
+- Node.js backend
+- React frontend
+- MongoDB database
+- RESTful API
+- JWT authentication
