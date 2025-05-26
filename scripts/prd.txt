@@ -1,0 +1,71 @@
+# Mars Terraforming Web Simulation
+
+## Overview  
+Mars Terraforming Web Simulation is a browser-based, top-down 3D strategy game that immerses players in the process of converting the Martian environment into a habitable ecosystem. By dividing the planet's surface into manageable grid tiles, players strategically deploy infrastructure, manage resources, and manipulate environmental parameters to support human life. This product combines scientifically accurate terraforming principles with engaging gameplay mechanics, targeting strategy gamers, educational institutions, and space enthusiasts. The game delivers both educational value—teaching atmospheric science, resource management, and ecological balance—and entertainment value through deep strategic decision-making and dynamic, evolving challenges.
+
+## Core Features  
+1. **Top-Down 3D Rendering**  
+   - **What**: Full orthographic camera view of the Martian surface in real-time 3D, showing terrain, structures, and environmental effects from a bird's-eye perspective.  
+   - **Why**: Provides comprehensive situational awareness, enabling strategic planning by visualizing whole-map resource distribution, building placements, and environmental changes.  
+   - **How**: Built with Three.js or Babylon.js integrated into a React/TypeScript front end. Utilizes custom shaders for real-time shadows and lighting, OffscreenCanvas and Web Workers to offload rendering calculations, and level-of-detail (LOD) techniques to maintain high frame rates even with thousands of objects on screen.  
+
+2. **Atmosphere Engineering System**  
+   - **What**: Simulation of greenhouse gas injection, gas mixing ratios (CO₂, N₂, O₂), temperature, and pressure dynamics across individual tiles and globally.  
+   - **Why**: Core gameplay mechanic representing the terraforming challenge—players must achieve target atmospheric thresholds for pressure (>0.6 atm) and average temperature (>0 °C) before introducing flora and fauna.  
+   - **How**: Environment model runs on a physics-based engine written in WebAssembly (WASM) for performance. Each time a terraforming structure operates, it consumes resources, updates local atmospheric parameters, and propagates changes across adjacent tiles using diffusion algorithms. Real-time data is fed back to the UI via React state management.  
+
+3. **Resource Exploration & Extraction**  
+   - **What**: Discovery and extraction of water ice, mineral ores (iron, magnesium, silica), and energy resources (solar, nuclear) necessary for infrastructure operation and research progression.  
+   - **Why**: Provides a strategic resource management layer—players must balance extraction rates with environmental impact and transportation logistics. Insufficient resources stall habitat expansion and technology development.  
+   - **How**: Implements an Entity-Component-System (ECS) pattern: ResourceComponent tracks tile-specific resource availability; Extractor buildings consume tool modules and worker units to harvest. Extraction yields are calculated per tick, influenced by building efficiency upgrades and random resource node sizes.  
+
+4. **Modular Building Placement & Upgrades**  
+   - **What**: A variety of modules—including habitat domes, greenhouses, power plants, gas processing plants, research labs—can be placed on grid tiles, each with individual upgrade paths.  
+   - **Why**: Empowers players to design and optimize their colony layout, adapting infrastructure to evolving environmental conditions and strategic goals.  
+   - **How**: Drag-and-drop interface with grid snapping and collision detection. Buildings have a multi-tier upgrade system unlocked via research. Placement commits a transaction in IndexedDB for offline play; server syncs state when online.  
+
+5. **Research & Technology Tree**  
+   - **What**: A branching tech tree comprising terraforming techniques (e.g., carbon capture, magnetic field simulation), advanced materials, and ecosystem engineering.  
+   - **Why**: Encourages long-term strategic planning, rewarding players for investing in incremental technological improvements that unlock new gameplay mechanics.  
+   - **How**: Structured as a JSON-defined graph loaded into React UI components. Players earn research points through operational facilities and completed events. Unlocking a node triggers prerequisite checks and updates available building and resource options.  
+
+6. **Dynamic Environment Dashboard**  
+   - **What**: Modular dashboard displays real-time charts of global and local metrics: temperature maps, atmospheric pressure heatmaps, resource inventories, population support levels.  
+   - **Why**: Essential for informed decision-making; players quickly identify underperforming sectors and critical resource shortages.  
+   - **How**: Uses Chart.js and D3.js to render interactive graphs within React. Dashboard widgets can be rearranged, resized, and have data filters; updates streamed via WebSocket for multiplayer.  
+
+## Technical Architecture  
+### Client Architecture  
+- **Frontend**: React + TypeScript + Three.js/Babylon.js for rendering; Zustand or Redux for state management.  
+- **Rendering**: Custom shader pipeline, OffscreenCanvas for tile grid, GPU instancing for buildings.  
+- **Simulation**: WebAssembly core for physics and environment modeling; Web Workers for parallel task processing.  
+
+### Server & Integration  
+- **Backend**: Node.js + Express API for authentication, save/load, multiplayer session management.  
+- **Real-time**: WebSocket.io or WebRTC for peer-to-peer data sync in cooperative/competitive modes.  
+- **APIs**: NASA Mars Climate Database REST endpoints for real-world terrain and climate data.  
+
+## Development Roadmap  
+### Phase 1: MVP Foundations  
+- Orthographic tilemap rendering engine with grid controls.  
+- Initial resource extraction and power generation buildings.  
+- Basic atmosphere simulation and data-binding to UI.  
+- Core UI: placement tools, dashboard, camera controls.  
+
+### Phase 2: Advanced Mechanics & Polish  
+- Implement research tree and upgrade systems.  
+- Introduce AI drone behaviors and autonomous task assignment.  
+- Add particle effects, dynamic lighting, and post-processing.  
+- Expand user settings: hotkeys, tutorials, accessibility.  
+
+### Phase 3: Multiplayer & Community Tools  
+- Develop WebSocket-based cooperative multiplayer sessions.  
+- Build scenario editor and custom map sharing platform.  
+- Integrate event system and seasonal challenges.  
+- Refine audio system and adaptive soundtrack.  
+
+### Phase 4: Optimization & Deployment  
+- Integrate WASM modules and Web Worker threading.  
+- Set up CI/CD pipelines and automated testing.  
+- Deploy analytics and telemetry dashboards.  
+- Release mobile-responsive UI and language localization.

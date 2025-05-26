@@ -1,0 +1,94 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "3D 렌더링 엔진 구현 (Top-Down 3D Rendering)",
+      "description": "Three.js 또는 Babylon.js를 활용한 화성 표면의 실시간 3D 렌더링 구현",
+      "status": "pending",
+      "priority": "high",
+      "details": "React/TypeScript 프론트엔드와 통합된 화성 표면의 직교 카메라 뷰를 구현합니다. 지형, 구조물, 환경 효과를 상공에서 바라보는 시점으로 표현합니다. 실시간 그림자와 조명을 위한 커스텀 셰이더, 렌더링 계산을 오프로드하기 위한 OffscreenCanvas와 Web Workers, 화면에 수천 개의 객체가 있어도 높은 프레임 속도를 유지하기 위한 LOD 기술을 활용합니다.",
+      "dependencies": []
+    },
+    {
+      "id": 2,
+      "title": "대기 공학 시스템 (Atmosphere Engineering System)",
+      "description": "각 타일과 전역에 걸친 온실 가스 주입, 가스 혼합 비율, 온도 및 압력 동적 시뮬레이션 구현",
+      "status": "pending",
+      "priority": "high",
+      "details": "성능을 위해 WebAssembly(WASM)로 작성된 물리 기반 엔진에서 환경 모델을 실행합니다. 지형 개조 구조물이 작동할 때마다 자원을 소비하고 로컬 대기 매개변수를 업데이트하며, 확산 알고리즘을 사용하여 인접한 타일에 변화를 전파합니다. 실시간 데이터는 React 상태 관리를 통해 UI에 피드백됩니다.",
+      "dependencies": [1]
+    },
+    {
+      "id": 3,
+      "title": "자원 탐사 및 추출 (Resource Exploration & Extraction)",
+      "description": "인프라 운영과 연구 진행에 필요한 물 얼음, 광물 광석, 에너지 자원의 발견 및 추출 구현",
+      "status": "pending",
+      "priority": "medium",
+      "details": "엔티티-컴포넌트-시스템(ECS) 패턴을 구현: ResourceComponent는 타일별 자원 가용성을 추적; 추출기 건물은 도구 모듈과 작업자 유닛을 소비하여 수확합니다. 추출 수율은 틱당 계산되며, 건물 효율성 업그레이드와 무작위 자원 노드 크기에 영향을 받습니다.",
+      "dependencies": [1]
+    },
+    {
+      "id": 4,
+      "title": "모듈식 건물 배치 및 업그레이드 (Modular Building Placement & Upgrades)",
+      "description": "거주 돔, 온실, 발전소, 가스 처리 공장, 연구소 등 다양한 모듈을 그리드 타일에 배치하고 각각 개별적인 업그레이드 경로 구현",
+      "status": "pending",
+      "priority": "medium",
+      "details": "그리드 스냅핑 및 충돌 감지가 있는 드래그 앤 드롭 인터페이스. 건물은 연구를 통해 잠금 해제되는 다단계 업그레이드 시스템을 갖습니다. 오프라인 플레이를 위한 IndexedDB 트랜잭션; 온라인 상태일 때 서버와 상태 동기화.",
+      "dependencies": [1, 3]
+    },
+    {
+      "id": 5,
+      "title": "연구 및 기술 트리 (Research & Technology Tree)",
+      "description": "테라포밍 기술, 고급 재료, 생태계 공학을 포함하는 분기형 기술 트리 구현",
+      "status": "pending",
+      "priority": "medium",
+      "details": "React UI 컴포넌트에 로드되는 JSON 정의 그래프로 구성됩니다. 플레이어는 운영 시설과 완료된 이벤트를 통해 연구 포인트를 획득합니다. 노드 잠금 해제는 전제 조건 검사를 트리거하고 사용 가능한 건물 및 자원 옵션을 업데이트합니다.",
+      "dependencies": [2, 3, 4]
+    },
+    {
+      "id": 6,
+      "title": "동적 환경 대시보드 (Dynamic Environment Dashboard)",
+      "description": "글로벌 및 로컬 메트릭에 대한 실시간 차트를 표시하는 모듈식 대시보드 구현",
+      "status": "pending",
+      "priority": "medium",
+      "details": "React 내에서 인터랙티브 그래프를 렌더링하기 위해 Chart.js 및 D3.js를 사용합니다. 대시보드 위젯을 재배치하고, 크기를 조정하며, 데이터 필터를 가질 수 있습니다; 멀티플레이어를 위해 WebSocket을 통한 업데이트가 스트리밍됩니다.",
+      "dependencies": [1, 2]
+    },
+    {
+      "id": 7,
+      "title": "그래픽 및 시각적 충실도 향상 (Graphics & Visual Fidelity)",
+      "description": "PBR 재질, HDR 톤 매핑, 실시간 동적 조명 등 그래픽 향상 기능 구현",
+      "status": "pending",
+      "priority": "low",
+      "details": "물리 기반 렌더링(PBR) 재질, 고동적 범위(HDR) 톤 매핑 및 블룸 효과, 실시간 동적 조명 시스템, 고급 파티클 시스템, 메시 인스턴싱 및 GPU 기반 LOD 전환 등을 구현합니다.",
+      "dependencies": [1]
+    },
+    {
+      "id": 8,
+      "title": "게임플레이 시스템 구현 (Deep Gameplay Systems)",
+      "description": "자율 AI 에이전트, 랜덤 이벤트 시스템, 시나리오 기반 캠페인 모드 등 고급 게임플레이 시스템 구현",
+      "status": "pending",
+      "priority": "low",
+      "details": "행동 트리에 의해 관리되는 자율 AI 에이전트(건설 드론, 유지보수 로봇), 무작위 이벤트 시스템, 스토리 요소가 있는 시나리오 기반 캠페인 모드, 디자이너를 위한 게임 내 밸런싱 도구를 구현합니다.",
+      "dependencies": [2, 3, 4, 5]
+    },
+    {
+      "id": 9,
+      "title": "UI/UX 향상 (UI/UX Enhancements)",
+      "description": "맥락별 튜토리얼, 사용자 정의 핫키 매핑, 응답형 디자인, 미니맵 등 UI/UX 향상 기능 구현",
+      "status": "pending",
+      "priority": "medium",
+      "details": "복잡한 메커니즘을 안내하는 맥락별 튜토리얼 및 진행형 툴팁, 파워 유저를 위한 사용자 정의 핫키 매핑 및 매크로 할당, 다양한 해상도와 화면 비율을 지원하는 응답형 디자인, 미니맵 등을 구현합니다.",
+      "dependencies": [1, 6]
+    },
+    {
+      "id": 10,
+      "title": "사운드 및 음악 (Sound & Music)",
+      "description": "다층 앰비언트 사운드스케이프, 동적 적응형 사운드트랙, 공간화된 3D 오디오 구현",
+      "status": "pending",
+      "priority": "low",
+      "details": "바람, 기계 소리, 배경 허밍을 혼합한 다층 앰비언트 사운드스케이프, 플레이어 진행 상황과 실시간 환경 상태에 따라 강도가 변하는 동적 적응형 사운드트랙, Web Audio API 패닝 및 리버브를 사용한 공간화된 3D 오디오를 구현합니다.",
+      "dependencies": [1]
+    }
+  ]
+}
